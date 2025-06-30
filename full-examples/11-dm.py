@@ -1,5 +1,3 @@
-# TODO: Добавить сюда сбор информации о юзере
-
 import logging
 
 from aiogram import Bot, Dispatcher, F
