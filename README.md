@@ -172,14 +172,14 @@ Inline-клавиатуры уже работают через callback'и: по
 Чего мы добились?
 
 Умеем включать пучарм, создавать проекты и виртуальные окружения, устанавливать зависимости из интернета. \
-Знаем, как создать тг-бота и заставить его отвечать нам. \ 
+Знаем, как создать тг-бота и заставить его отвечать нам. \
 Увидели Reply и Inline клавиатуры в работе. \
 Поработали с локальной базой и состояниями пользователей. \
-Сделали "анонимный [групповой] чат"
+Сделали "анонимный [групповой] чат".
 
 ## Полезные материалы
 
-- [Бесплатная книга по тг-бот от Груши](https://mastergroosha.github.io/aiogram-3-guide/)
+- [Бесплатная книга по тг-ботам от Груши](https://mastergroosha.github.io/aiogram-3-guide/)
 - [Aiogram GitHub](https://github.com/aiogram/aiogram)
 - - [Aiogram docs](https://docs.aiogram.dev/en/v3.20.0.post0/)
 - - [Aiogram FSM](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/finite_state_machine/index.html)
