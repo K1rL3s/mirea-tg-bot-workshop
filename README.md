@@ -58,6 +58,8 @@ pip install aiogram
 
 И теперь сделаем всё чуть красивее: [тык](05-echo-bot/3.py)
 
+Итоговый файл этой части: [тык](full-examples/05-echo-bot.py)
+
 
 ## Часть 6. Обработка команд
 
@@ -92,6 +94,8 @@ from aiogram.filters import CommandStart
 
 Теперь, зная как обрабатывать команды, добавим хэндлер (обработчик) для старта и помощи: [тык](06-commands/2.py)
 
+Итоговый файл этой части: [тык](full-examples/06-commands.py)
+
 
 ## Часть 7. Клавиатуры: Inline и Reply
 
@@ -103,6 +107,8 @@ Reply-клавиатуры работают через сообщения - жм
 Inline-клавиатуры уже работают через callback'и: по нажатию на кнопку боту отправляется специальное событие CallbackQuery: [тык](07-keyboards/2.py)
 
 Они удобны тем, что буквально "привязаны" к сообщению и содержат две части - "внешнюю" (отображаемый пользователю текст) и "внутреннюю" (callback_data, которая при нажатии отправится боту).
+
+Итоговый файл этой части: [тык](full-examples/07-keyboards.py)
 
 
 ## Часть 8. Настройка локальной базы данных
@@ -120,6 +126,7 @@ Inline-клавиатуры уже работают через callback'и: по
 
 Напишем класс с двумя (тремя) методами: сохранение пользователя и получение пользователя: [тык](08-database/database.py)
 
+Итоговые файлы этой части: [бот](full-examples/08-save-user.py), [бд](full-examples/database_08.py)
 
 ## Часть 9. Сбор данных о пользователе
 
@@ -132,6 +139,8 @@ Inline-клавиатуры уже работают через callback'и: по
 
 Сделаем пошаговый сценарий сбора информации: [тык](09-fsm/1.py)
 
+Итоговые файлы этой части: [бот](full-examples/09-fsm.py), [бд](full-examples/database_09.py)
+
 
 ## Часть 10. Массовая рассылка формата “каждый каждому”
 
@@ -140,6 +149,8 @@ Inline-клавиатуры уже работают через callback'и: по
 Для этого добавим метод получения всех юзеров из бд: [тык](10-group-chat/database.py)
 
 И теперь сделаем отправку сообщения для всех: [тык](10-group-chat/1.py)
+
+Итоговые файлы этой части: [бот](full-examples/10-group-chat.py), [бд](full-examples/database_10.py)
 
 
 ## Часть 11. Ответ в "лс" вместо сообщения всем
@@ -152,3 +163,30 @@ Inline-клавиатуры уже работают через callback'и: по
 Обновим методы работы с бд, чтобы получать юзера либо по тг_айди, либо по нашему айди: [тык](11-dm/database.py)
 
 В титульное сообщение отправляем кнопку с нашим айди, и по нажатию на неё ждём сообщение для конкретного пользователя: [тык](11-dm/1.py)
+
+Итоговые файлы этой части: [бот](full-examples/11-dm.py), [бд](full-examples/database_11.py)
+
+
+## Заключение
+
+Чего мы добились?
+
+Умеем включать пучарм, создавать проекты и виртуальные окружения, устанавливать зависимости из интернета. \
+Знаем, как создать тг-бота и заставить его отвечать нам. \ 
+Увидели Reply и Inline клавиатуры в работе. \
+Поработали с локальной базой и состояниями пользователей. \
+Сделали "анонимный [групповой] чат"
+
+## Полезные материалы
+
+- [Бесплатная книга по тг-бот от Груши](https://mastergroosha.github.io/aiogram-3-guide/)
+- [Aiogram GitHub](https://github.com/aiogram/aiogram)
+- - [Aiogram docs](https://docs.aiogram.dev/en/v3.20.0.post0/)
+- - [Aiogram FSM](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/finite_state_machine/index.html)
+- - [Aiogram middlewares](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/middlewares.html)
+- - [Aiogram filters](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/filters/)
+- - [Aiogram magic-filter](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/filters/magic_filters.html#magic-filters)
+- - [Aiogram routers](https://docs.aiogram.dev/en/v3.20.0post0/dispatcher/router.html)
+- [TG Bot API](https://core.telegram.org/bots/api)
+- [SQL](https://habr.com/ru/articles/564390/)
+- - [Python SQLite](https://habr.com/ru/articles/754400/)
