@@ -22,7 +22,7 @@ async def group_message(message: Message) -> None:
 
     for receiver in users:
         title_message = await bot.send_message(chat_id=receiver.tg_id, text=title_text)
-        await message.send_copy(chat_id=receiver.tg_id, reply_to_message_id=title_message.id)
+        await message.send_copy(chat_id=receiver.tg_id, reply_to_message_id=title_message.message_id)
 
 
 def main() -> None:
