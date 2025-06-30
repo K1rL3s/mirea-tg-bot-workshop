@@ -47,7 +47,7 @@ async def dm_message(message: Message, state: FSMContext) -> None:
     title_message = await bot.send_message(chat_id=receiver.tg_id, text=title_text, reply_markup=keyboard)
     await message.send_copy(chat_id=receiver.tg_id, reply_to_message_id=title_message.message_id)
 
-    await message.answer("Личное сообщение отправлено!")
+    await message.reply("Отправил лично!")
 
 
 @dp.message()

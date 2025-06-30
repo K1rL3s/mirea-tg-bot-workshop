@@ -9,7 +9,7 @@ from aiogram.types import Message
 from database_10 import Database
 
 
-bot = Bot(token="8036313701:AAGfaxkuU36gdkE-RS1rVqY4jIFvTA4Suus")
+bot = Bot(token="8036313701:AAEp34lszpyd8eeLjDRUiEWjZA-6JO_Nxwg")
 dp = Dispatcher()
 db = Database("database.db")
 
