@@ -25,7 +25,7 @@ async def wait_dm_message(callback: CallbackQuery, state: FSMContext) -> None:
     await state.set_state(DirectMessage.wait_message)
     await state.set_data(data={"receiver_id": receiver_id})
 
-    text = "Напиши сообщение, которое отправится " + receiver[2]
+    text = "Напиши сообщение, которое отправится " + receiver.name
     await callback.message.answer(text)
 
 
