@@ -12,6 +12,7 @@ dp = Dispatcher()
 async def echo(message: Message) -> None:
     await message.answer(text=message.text)
 
+
 def main() -> None:
     logging.basicConfig(level=logging.DEBUG)
     dp.run_polling(bot)

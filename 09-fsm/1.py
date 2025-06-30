@@ -1,7 +1,7 @@
 import logging
 
 from aiogram import Bot, Dispatcher, F
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message
@@ -25,7 +25,7 @@ async def start(message: Message, state: FSMContext) -> None:
 
     user = db.get_user(tg_id=tg_id)
     if user:
-        user_str = " ".join(map(str, user))
+        user_str = str(user.tg_id) + " " + user.name + " " + str(user.age)
         text = "Я тебя знаю, ты " + user_str
         await message.answer(text=text)
     else:

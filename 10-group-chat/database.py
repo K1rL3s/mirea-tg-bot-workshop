@@ -1,7 +1,13 @@
 import sqlite3
 from contextlib import closing
+from dataclasses import dataclass
 
-type User = tuple[int, str, int]
+
+@dataclass
+class User:
+    tg_id: int
+    name: str
+    age: int
 
 
 class Database:
@@ -35,9 +41,10 @@ class Database:
     def get_user(self, tg_id: int) -> User | None:
         with closing(self.connection.cursor()) as cursor:
             cursor.execute("SELECT * FROM users WHERE tg_id = ?", (tg_id,))
-            return cursor.fetchone()
+            data = cursor.fetchone()
+            return User(*data) if data else None
 
     def get_all_users(self) -> list[User]:
         with closing(self.connection.cursor()) as cursor:
             cursor = cursor.execute("SELECT * FROM users ORDER BY tg_id")
-            return cursor.fetchall()
+            return [User(*row) for row in cursor.fetchall()]

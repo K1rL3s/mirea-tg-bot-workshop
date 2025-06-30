@@ -3,8 +3,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, \
-    CallbackQuery
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 from database import Database
 
@@ -38,15 +37,15 @@ async def dm_message(message: Message, state: FSMContext) -> None:
 
     sender = db.get_user_by_tg_id(tg_id=message.from_user.id)
 
-    title_text = "Сообщение от " + str(sender[2]) + " лично для тебя:"
+    title_text = "Сообщение от " + sender.name + " лично для тебя:"
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="Ответ в лс", callback_data=str(sender[0]))]
+            [InlineKeyboardButton(text="Ответ в лс", callback_data=str(sender.id))]
         ]
     )
-    title_message = await bot.send_message(chat_id=receiver[1], text=title_text, reply_markup=keyboard)
-    await message.send_copy(chat_id=receiver[1], reply_to_message_id=title_message.message_id)
+    title_message = await bot.send_message(chat_id=receiver.tg_id, text=title_text, reply_markup=keyboard)
+    await message.send_copy(chat_id=receiver.tg_id, reply_to_message_id=title_message.message_id)
 
     await message.answer("Личное сообщение отправлено!")
 
@@ -58,18 +57,18 @@ async def group_message(message: Message) -> None:
         return
 
     users = db.get_all_users()
-    title_text = "Сообщение от " + str(sender[2]) + " для всех:"
+    title_text = "Сообщение от " + sender.name + " для всех:"
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="Ответ в лс", callback_data=str(sender[0]))]
+            [InlineKeyboardButton(text="Ответ в лс", callback_data=str(sender.id))]
         ]
     )
     for receiver in users:
         if receiver == sender:
             continue
-        title_message = await bot.send_message(chat_id=receiver[1], text=title_text, reply_markup=keyboard)
-        await message.send_copy(chat_id=receiver[1], reply_to_message_id=title_message.message_id)
+        title_message = await bot.send_message(chat_id=receiver.tg_id, text=title_text, reply_markup=keyboard)
+        await message.send_copy(chat_id=receiver.tg_id, reply_to_message_id=title_message.message_id)
 
 
 def main() -> None:

@@ -1,7 +1,13 @@
 import sqlite3
 from contextlib import closing
+from dataclasses import dataclass
 
-type User = tuple[int, str | None, int | None]
+
+@dataclass
+class User:
+    tg_id: int
+    name: str | None
+    age: int | None
 
 
 class Database:
@@ -35,4 +41,5 @@ class Database:
     def get_user(self, tg_id: int) -> User | None:
         with closing(self.connection.cursor()) as cursor:
             cursor.execute("SELECT * FROM users WHERE tg_id = ?", (tg_id,))
-            return cursor.fetchone()
+            data = cursor.fetchone()
+            return User(*data) if data else None
