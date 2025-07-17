@@ -6,8 +6,6 @@ from dataclasses import dataclass
 @dataclass
 class User:
     tg_id: int
-    name: str | None
-    age: int | None
 
 
 class Database:
@@ -22,9 +20,7 @@ class Database:
         with closing(self.connection.cursor()) as cursor:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS users (
-                    tg_id INTEGER PRIMARY KEY,
-                    name TEXT,
-                    age INTEGER
+                    tg_id INTEGER PRIMARY KEY
                 )
             """)
             self.connection.commit()

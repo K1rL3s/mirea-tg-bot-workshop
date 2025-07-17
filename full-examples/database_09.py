@@ -5,9 +5,8 @@ from dataclasses import dataclass
 
 @dataclass
 class User:
+    id: int
     tg_id: int
-    name: str
-    age: int
 
 
 class Database:
@@ -22,24 +21,26 @@ class Database:
         with closing(self.connection.cursor()) as cursor:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS users (
-                    tg_id INTEGER PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    age INTEGER NOT NULL
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    tg_id INTEGER UNIQUE NOT NULL
                 )
             """)
             self.connection.commit()
 
-    def save_user(self, tg_id: int, name: str, age: int) -> None:
+    def save_user(self, tg_id: int) -> None:
         with closing(self.connection.cursor()) as cursor:
-            if self.get_user(tg_id) is None:
-                cursor.execute("""
-                    INSERT OR REPLACE INTO users (tg_id, name, age)
-                    VALUES (?, ?, ?)
-                """, (tg_id, name, age))
+            if self.get_user_by_tg_id(tg_id) is None:
+                cursor.execute("""INSERT INTO users (tg_id) VALUES (?)""", (tg_id,))
                 self.connection.commit()
 
-    def get_user(self, tg_id: int) -> User | None:
+    def get_user_by_tg_id(self, tg_id: int) -> User | None:
         with closing(self.connection.cursor()) as cursor:
             cursor.execute("SELECT * FROM users WHERE tg_id = ?", (tg_id,))
+            data = cursor.fetchone()
+            return User(*data) if data else None
+
+    def get_user_by_id(self, user_id: int) -> User | None:
+        with closing(self.connection.cursor()) as cursor:
+            cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
             data = cursor.fetchone()
             return User(*data) if data else None

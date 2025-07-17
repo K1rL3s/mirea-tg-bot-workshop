@@ -7,8 +7,6 @@ from dataclasses import dataclass
 class User:
     id: int
     tg_id: int
-    name: str
-    age: int
 
 
 class Database:
@@ -24,24 +22,16 @@ class Database:
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    tg_id INTEGER NOT NULL,
-                    name TEXT NOT NULL,
-                    age INTEGER NOT NULL
+                    tg_id INTEGER UNIQUE NOT NULL
                 )
             """)
             self.connection.commit()
 
-    def save_user(self, tg_id: int, name: str, age: int) -> int:
+    def save_user(self, tg_id: int) -> None:
         with closing(self.connection.cursor()) as cursor:
             if self.get_user_by_tg_id(tg_id) is None:
-                cursor.execute("""
-                    INSERT OR REPLACE INTO users (tg_id, name, age)
-                    VALUES (?, ?, ?)
-                    RETURNING id
-                """, (tg_id, name, age))
-                user_id = cursor.fetchone()
+                cursor.execute("""INSERT INTO users (tg_id) VALUES (?)""", (tg_id,))
                 self.connection.commit()
-            return user_id
 
     def get_user_by_tg_id(self, tg_id: int) -> User | None:
         with closing(self.connection.cursor()) as cursor:
@@ -49,13 +39,8 @@ class Database:
             data = cursor.fetchone()
             return User(*data) if data else None
 
-    def get_user_by_id(self, id: int) -> User | None:
+    def get_user_by_id(self, user_id: int) -> User | None:
         with closing(self.connection.cursor()) as cursor:
-            cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
+            cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
             data = cursor.fetchone()
             return User(*data) if data else None
-
-    def get_all_users(self) -> list[User]:
-        with closing(self.connection.cursor()) as cursor:
-            cursor = cursor.execute("SELECT * FROM users ORDER BY id")
-            return [User(*row) for row in cursor.fetchall()]
