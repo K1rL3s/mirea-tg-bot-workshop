@@ -1,12 +1,22 @@
 import logging
 
 from aiogram import Bot, Dispatcher, F
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart, Command, MagicData
 from aiogram.types import Message
 
 
 bot = Bot(token="8036313701:AAEp34lszpyd8eeLjDRUiEWjZA-6JO_Nxwg")
 dp = Dispatcher()
+
+
+# https://t.me/botusername?start=123123
+@dp.message(
+    CommandStart(deep_link=True),
+    MagicData(F.command.args.isdigit()),
+    MagicData(F.command.args.cast(int).as_("user_id")),
+)
+async def start(message: Message, user_id: int) -> None:
+    await message.answer("Привет!!! uid: " + str(user_id))
 
 
 @dp.message(CommandStart())
